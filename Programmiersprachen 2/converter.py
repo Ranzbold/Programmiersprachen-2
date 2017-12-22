@@ -1,15 +1,34 @@
 from _datetime import datetime
-from _datetime import date
 import time
+import doctest
 
 #Convert Input of Format YYYYMMDD Into Dates
 def dateconvert(date_string):
     '''Main function which converts the given Date String into a datetime object. 
     This object then gets converted into 3 different Strings and one integer,
-   which represent different expressions of dates in different calendars'''
-    if((len(date_string) < 8) or (len(date_string) > 8)):
-        return "Input is too short or too long. Plese use exactly 8 chars"
+   which represent different expressions of dates in different calendars
+    >>> print(dateconvert("20171224"))
+    ('Sonntag, 24. Dezember 2017', 'Sunday, 24 December 2017', 'Sunday, 12/24/2017', 1514113200.0)
+    >>> print(dateconvert("22010101"))
+    Date out of Range
+    >>> print(dateconvert("201705A1"))
+    Invalid Input Format. Only Integers are allowed
+    >>> print(dateconvert("2015A404"))
+    Invalid Input Format. Only Integers are allowed
+    >>> print(dateconvert("2015A404"))
+    Invalid Input Format. Only Integers are allowed
+    >>> print(dateconvert("123"))
+    Input is too short or too long. Please use exactly 8 chars
+    >>> print(dateconvert("007122016"))
+    Input is too short or too long. Please use exactly 8 chars
+    >>> print(dateconvert("18010101"))
+    ('Donnerstag, 1. Januar 1801', 'Thursday, 1 January 1801', 'Thursday, 01/01/1801', 'There is no unix time pre 01.01.1970')
+    >>> print(dateconvert("22001231"))
+    ('Mittwoch, 31. Dezember 2200', 'Wednesday, 31 December 2200', 'Wednesday, 12/31/2200', 7289607600.0)
+   '''
     date_string = str(date_string)
+    if((len(date_string) < 8) or (len(date_string) > 8)):
+        return "Input is too short or too long. Please use exactly 8 chars"
     if(not date_string.isnumeric()):
         return "Invalid Input Format. Only Integers are allowed"
     if(checkinput(date_string)):
@@ -133,3 +152,5 @@ def checkinput(date):
         print("Wrong Input Format. Use Integers in Format YYYYMMDD")
         return False
 
+print(dateconvert("20171224"))
+doctest.testmod()
