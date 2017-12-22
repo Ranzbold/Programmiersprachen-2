@@ -4,6 +4,10 @@ import time
 import converter
 
 def main():
+    '''Main function which handles user input. The function passes its
+    input to the parse_input function, which returns a String according
+    to the validity of the input. If the Input is valid the function passes
+    the valid input to the dateconvert function of the converter module'''
     strdate = input("Please input a Date in one of the following formats:" "YYYYMMDD or MM/DD/YYYY:")
     parse_result = parse_input(strdate)
     print("---------------------------------------------")
@@ -14,6 +18,8 @@ def main():
     pass
 
 def parse_input(dateinput):
+    ''' Function that checks the validity of the given Date String
+    The String Formats YYYYMMDD and MM/DD/YYYY are supported'''
     valid = False
     try:
         parsed_time = datetime.strptime(dateinput, '%Y%m%d')

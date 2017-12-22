@@ -4,6 +4,9 @@ import time
 
 #Convert Input of Format YYYYMMDD Into Dates
 def dateconvert(date_string):
+    '''Main function which converts the given Date String into a datetime object. 
+    This object then gets converted into 3 different Strings and one integer,
+   which represent different expressions of dates in different calendars'''
     if((len(date_string) < 8) or (len(date_string) > 8)):
         return "Input is too short or too long. Plese use exactly 8 chars"
     date_string = str(date_string)
@@ -23,6 +26,9 @@ def dateconvert(date_string):
 
 
 def format_weekday(weekday, dateformat):
+    '''Function to convert the integer which datetime.weekday returns to the according
+    Term in the different calendars. The function gets the weekday from 0 to 6 as integer and the 
+    calender format to convert to'''
     weekday_str = ""
     if(weekday == 0):
         if(dateformat == "german"):
@@ -62,12 +68,16 @@ def format_weekday(weekday, dateformat):
     return weekday_str
 
 def get_german_month(m):
+    '''Function which uses a dictionary to convert the month integer
+    to the according german names'''
     months_dict = {1: "Januar", 2: "Februar", 3: "März", 4: "April", 5: "Mai",
                   6: "Juni", 7: "Juli" , 8: "August", 9: "September",
                  10: "Oktober", 11: "November", 12: "Dezember"}
     return months_dict[m]
 
 def get_german_date(converted_date):
+    '''Function that gets a datetime object and converts it to a date String 
+    according to the german calendar format and returns said String.'''
     date_str = ""
     weekday = converted_date.weekday()
     weekday_str = (format_weekday(weekday,"german"))
@@ -78,6 +88,8 @@ def get_german_date(converted_date):
     return date_str
 
 def get_british_date(converted_date):
+    '''Function that gets a datetime object and converts it to a date String 
+    according to the british calendar format and returns said String'''
     weekday = converted_date.weekday()
     weekday_str = (format_weekday(weekday,"british"))
     year = str(converted_date.year)
@@ -88,6 +100,8 @@ def get_british_date(converted_date):
     return date_str
 
 def get_american_date(converted_date):
+    '''Function that gets a datetime object and converts it to a date String 
+    according to the american calendar format and returns said String'''
     weekday = converted_date.weekday()
     weekday_str = (format_weekday(weekday,"american"))
     year = str(converted_date.year)
@@ -98,11 +112,19 @@ def get_american_date(converted_date):
 
 
 def get_unix_date(converted_date):
-    newtime = converted_date.replace(hour = 12, minute = 0)
-    unix_time = time.mktime(newtime.timetuple())
+    '''Function that gets a datetime object and converts it to Unix Time
+    and returns said time as an Integer. Minimum Value for this Function is 01.01.1970.
+    Will throw an OverflowError otherwise'''
+    try:
+        newtime = converted_date.replace(hour = 12, minute = 0)
+        unix_time = time.mktime(newtime.timetuple())
+    except OverflowError:
+        return"There is no unix time pre 01.01.1970"
     return unix_time
 
 def checkinput(date):
+    '''Checks if the Input String is given in a valid format. If the Input is valid it returns
+    the converted DateTime Object'''
     try:
         datetime.strptime(date, '%Y%m%d')
 
