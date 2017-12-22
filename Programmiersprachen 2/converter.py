@@ -8,7 +8,7 @@ def dateconvert(date_string):
     This object then gets converted into 3 different Strings and one integer,
    which represent different expressions of dates in different calendars
     >>> print(dateconvert("20171224"))
-    ('Sonntag, 24. Dezember 2017', 'Sunday, 24 December 2017', 'Sunday, 12/24/2017', 1514113200.0)
+    ('Sonntag, 24. Dezember 2017', 'Sunday, 24 December 2017', 'Sunday, 12/24/2017', 1514113200)
     >>> print(dateconvert("22010101"))
     Date out of Range
     >>> print(dateconvert("201705A1"))
@@ -24,7 +24,7 @@ def dateconvert(date_string):
     >>> print(dateconvert("18010101"))
     ('Donnerstag, 1. Januar 1801', 'Thursday, 1 January 1801', 'Thursday, 01/01/1801', 'There is no unix time pre 01.01.1970')
     >>> print(dateconvert("22001231"))
-    ('Mittwoch, 31. Dezember 2200', 'Wednesday, 31 December 2200', 'Wednesday, 12/31/2200', 7289607600.0)
+    ('Mittwoch, 31. Dezember 2200', 'Wednesday, 31 December 2200', 'Wednesday, 12/31/2200', 7289607600)
    '''
     date_string = str(date_string)
     if((len(date_string) < 8) or (len(date_string) > 8)):
@@ -136,7 +136,7 @@ def get_unix_date(converted_date):
     Will throw an OverflowError otherwise'''
     try:
         newtime = converted_date.replace(hour = 12, minute = 0)
-        unix_time = time.mktime(newtime.timetuple())
+        unix_time = int(time.mktime(newtime.timetuple()))
     except OverflowError:
         return"There is no unix time pre 01.01.1970"
     return unix_time
