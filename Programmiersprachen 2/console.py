@@ -31,7 +31,7 @@ def parse_input(dateinput):
         return parsed_string
     except ValueError:
         pass
-    print("Wrong Input Format. Use either YYYYMMDD or MM/DD/YYYY")
+    print("Wrong Input Format. Use either YYYYMMDD or MM/DD/YYYY and only integers")
     return "invalid"
 
 main()

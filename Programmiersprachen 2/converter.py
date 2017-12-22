@@ -4,12 +4,20 @@ import time
 
 #Convert Input of Format YYYYMMDD Into Dates
 def dateconvert(date_string):
+    if((len(date_string) < 8) or (len(date_string) > 8)):
+        return "Input is too short or too long. Plese use exactly 8 chars"
+    date_string = str(date_string)
+    if(not date_string.isnumeric()):
+        return "Invalid Input Format. Only Integers are allowed"
     if(checkinput(date_string)):
         dateinput = datetime.strptime(date_string, "%Y%m%d")
-        german_date = get_german_date(dateinput)
-        british_date = get_british_date(dateinput)
-        american_date = get_american_date(dateinput)
-        unix_date = get_unix_date(dateinput)
+        if(datetime(1801,1,1) <= dateinput <= datetime(2200,12,31)):
+            german_date = get_german_date(dateinput)
+            british_date = get_british_date(dateinput)
+            american_date = get_american_date(dateinput)
+            unix_date = get_unix_date(dateinput)
+        else: 
+            return "Date out of Range"    
         return (german_date, british_date, american_date, unix_date)
     else: return "Invalid Input Format. Use YYYYMMDD"
 
@@ -97,7 +105,9 @@ def get_unix_date(converted_date):
 def checkinput(date):
     try:
         datetime.strptime(date, '%Y%m%d')
+
         return True
     except ValueError:
+        print("Wrong Input Format. Use Integers in Format YYYYMMDD")
         return False
 
